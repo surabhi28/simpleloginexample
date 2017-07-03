@@ -1,0 +1,72 @@
+<html>
+<head>
+	<title>inheritance</title>
+	<style type="text/css">
+table, th , td {
+ border: 1px solid grey;
+ border-collapse: collapse;
+ padding: 5px;
+}
+table tr:nth-child(odd) {
+ background-color: #f2f2f2;
+}
+table tr:nth-child(even) {
+ background-color: #ffffff;
+}
+	</style>
+</head>
+<body>
+<script  src = "js/angular.min.js"></script>
+  <script src="js/angular-resource.min.js"></script>
+<div ng-app = "myApp" ng-controller = "myCtrl">
+	name = {{name}}
+	
+
+<table >
+	<tr>
+		<th>Username</th>
+		<th>Password</th>
+		<th>Email</th>
+		
+	</tr>
+	
+	total items:{{ctrl.info.length}}
+	<tr ng-repeat = "item in list">
+	
+		<td>{{item.username}}</td>
+		<td>{{item.password}}</td>
+		<td>{{item.email}}</td>
+		
+	</tr>
+</table>
+
+
+</div>
+
+
+        
+
+<script>
+var app = angular.module ('myApp',['ngResource']);
+app.factory('UserService', function ($resource) {
+       var data = $resource('http://puppygifs.tumblr.com/api/read/json', {
+  
+      update:{
+          method:'PUT'
+          }
+      });
+      return data;
+  });
+app.controller('myCtrl',['$scope','$resource',function($scope,$resource){
+	$scope.name = 'working!!'
+	
+var data = $resource('http://localhost:3000/users',{});
+
+
+	 $scope.list = data.query();
+	
+	
+}]);
+</script>
+</body>
+</html>
